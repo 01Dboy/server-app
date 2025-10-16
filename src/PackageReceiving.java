@@ -1,20 +1,27 @@
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 public class PackageReceiving {
 
-    public boolean send(byte[] packet) {
-        try (Socket socket = new ServerSocket(ServerConfig.PORT).accept();
-             InputStream input = socket.getInputStream()) {
-
-            input.
-
-            return true;
+    public byte[] tryingReceiving(ServerSocket serverSocket) {
+        System.out.println("Попытка подключения... /n");
+        try (Socket socket = serverSocket.accept();
+             InputStream in = socket.getInputStream();) {
+            System.out.println("Подключение прошло успешно.");
+            System.out.println("Пакет передается расшифровщику.");
+            return in.readAllBytes();
         } catch (IOException e) {
-            return false;
+            System.out.println("Ошибка подключения: ");
+            e.printStackTrace();
+            return null;
         }
+    }
 
 }
+
+
+
+
+
+
